@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CardList from './CardList';
 import SearchBox from './SearchBox';
 import {robots} from './robots';
+import './App.css';
 
 class App extends Component {
   constructor() {
@@ -11,19 +12,18 @@ class App extends Component {
       searchfield: '',
     }
   }
-  onSearchChange = (event) => { // use function expression instead of function declaration due to 'this'
-  const filteredRobots = this.state.robots.filter((robot) => { // this would refer to the event if using function declation
-    return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
-  });
-  console.log(event.target.value);
-    console.log(filteredRobots);
+  onSearchChange = (event) => { // use function expression instead of function declaration due to 'this' // this would refer to the event if using function declation
+    this.setState({searchfield: event.target.value})
   }
   render() {
+    const filteredRobots = this.state.robots.filter((robot) => { 
+      return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
+    });
     return (
       <div className="tc">
-        <h1>RoboFriends</h1>
+        <h1 className="f2">RoboFriends</h1>
         <SearchBox searchChange={this.onSearchChange}/>
-        <CardList robots={this.state.robots} />
+        <CardList robots={filteredRobots} />
       </div>
     );  
   }

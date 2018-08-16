@@ -25,11 +25,13 @@ class App extends Component {
   onSearchChange = (event) => { // use function expression instead of function declaration due to 'this' // this would refer to the event if using function declation
     this.setState({searchfield: event.target.value})
   }
+
   render() {
-    const filteredRobots = this.state.robots.filter((robot) => { 
-      return robot.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
+    const { robots, searchfield } = this.state;
+    const filteredRobots = robots.filter((robot) => { 
+      return robot.name.toLowerCase().includes(searchfield.toLowerCase());
     });
-    if(this.state.robots.length === 0) {
+    if(robots.length === 0) {
       return <h1>Loading</h1>
     } else {
       return (
